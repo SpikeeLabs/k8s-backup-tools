@@ -1,0 +1,20 @@
+#! /bin/bash
+set -e -o pipefail
+
+
+FILENAME="$1"
+ENDPOINTS="$2"
+
+source .colors
+
+clr_green clr_bold  "Dumping $DB to $FILENAME"
+
+clr_blue clr_bright "> etcdctl --endpoints=$ENDPOINTS
+                --cert=/certs/server.crt
+                --cacert=/certs/ca.crt
+                --key=/certs/server.key
+                snapshot save $FILENAME"
+
+output=$(etcdctl --endpoints=$ENDPOINTS --cert=/certs/server.crt --cacert=/certs/ca.crt --key=/certs/server.key snapshot save "$FILENAME")
+
+clr_blue "$output"
