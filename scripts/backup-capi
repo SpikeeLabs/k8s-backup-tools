@@ -1,0 +1,15 @@
+#! /bin/bash
+set -e -o pipefail
+
+
+
+DB_NAME="$1"
+DATE=$(date "$DATE_FORMAT")
+FILENAME="$DB_NAME-$DATE"
+
+source .colors
+
+clr_green clr_bold "Running backup-capi"
+capi-exporter "$FILENAME"
+minio-sender "$FILENAME"  "pg/$MINIO_BUCKET/$DB_NAME"
+
