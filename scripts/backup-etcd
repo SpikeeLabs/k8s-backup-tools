@@ -12,5 +12,5 @@ source .colors
 
 clr_green clr_bold "Running backup-etcd"
 etcd-exporter "$FILENAME" "$ETCD_ENDPOINTS"
-minio-sender "$FILENAME"  "pg/$MINIO_BUCKET/$DB_NAME/$FILENAME"
+minio-sender "$FILENAME"  "pg/$MINIO_BUCKET/$DB_NAME/"
 

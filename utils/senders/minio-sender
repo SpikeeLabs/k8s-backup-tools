@@ -15,8 +15,8 @@ clr_blue clr_bright "Using $MINIO_SERVER with version $MINIO_API_VERSION"
 mc -q --insecure alias set pg "$MINIO_SERVER" "$MINIO_ACCESS_KEY" "$MINIO_SECRET_KEY" --api "$MINIO_API_VERSION"
 
 
-clr_blue clr_bright "> mc cp $FILENAME $REMOTE_PATH"
+clr_blue clr_bright "> mc cp -r $FILENAME $REMOTE_PATH"
 
-mc -q --insecure cp "$FILENAME" "$REMOTE_PATH"  || { echo "Backup failed"; mc rm "$REMOTE_PATH"; exit 1; }
+mc -q --insecure cp -r "$FILENAME" "$REMOTE_PATH"  || { echo "Backup failed"; mc rm "$REMOTE_PATH"; exit 1; }
 
 clr_blue "Upload Complete"
