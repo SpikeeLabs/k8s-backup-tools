@@ -7,14 +7,14 @@ ENDPOINTS="$2"
 
 source .colors
 
-clr_green clr_bold  "Dumping $DB to $FILENAME"
+clr_green clr_bold  "Dumping etcd to $FILENAME"
 
 clr_blue clr_bright "> etcdctl --endpoints=$ENDPOINTS
-                --cert=/certs/server.crt
-                --cacert=/certs/ca.crt
-                --key=/certs/server.key
+                --cert=/data/server.crt
+                --cacert=/data/ca.crt
+                --key=/data/server.key
                 snapshot save $FILENAME"
 
-output=$(etcdctl --endpoints=$ENDPOINTS --cert=/certs/server.crt --cacert=/certs/ca.crt --key=/certs/server.key snapshot save "$FILENAME")
+output=$(etcdctl --endpoints=$ENDPOINTS --cert=/data/server.crt --cacert=/data/ca.crt --key=/data/server.key snapshot save "$FILENAME")
 
 clr_blue "$output"

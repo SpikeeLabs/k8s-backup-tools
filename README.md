@@ -29,12 +29,9 @@ jobTemplate:
                 - backup-etcd
                 - my_db # database name prefix
                 - https://x.x.x.x:2379 ## give the etcd pod address
-            workingDir: /data
             volumeMounts:
-                - mountPath: /certs
-                name: etcd-certs
                 - mountPath: /data
-                name: cache-volume
+                name: etcd-certs
             env:
                 - name: MINIO_SERVER
                 value: https://s3.example.com # minio console address
