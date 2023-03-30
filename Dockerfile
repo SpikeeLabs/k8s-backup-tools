@@ -1,5 +1,8 @@
 # Fetch the mc command line client
-FROM alpine:3.17.2 AS mc
+FROM alpine:3.17.2 AS base
+
+
+FROM base AS mc
 
 RUN apk update && apk add --no-cache ca-certificates wget && \
     update-ca-certificates
@@ -13,9 +16,9 @@ RUN wget -q --show-progress --progress=dot:giga https://dl.minio.io/client/mc/re
 FROM k8s.gcr.io/etcd:3.5.1-0 AS build
 
 # Then build our backup image
-FROM alpine:3.17.2
+FROM base
 
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash && adduser -Ds /bin/bash backup
 
 WORKDIR /usr/local/bin
 
@@ -26,9 +29,11 @@ COPY utils/* ./utils/
 
 RUN chmod -R +x /usr/local/bin/scripts /usr/local/bin/utils
 
+USER backup
+
+WORKDIR /home/backup
+
 ENV DATE_FORMAT="+%d-%m-%Y %H:%M:%S" \
     PATH="$PATH:/usr/local/bin/scripts:/usr/local/bin/utils"
-
-WORKDIR /app
 
 ENTRYPOINT [ "bash" ]
