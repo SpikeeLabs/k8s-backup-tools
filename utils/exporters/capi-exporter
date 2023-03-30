@@ -1,0 +1,18 @@
+#! /bin/bash
+set -e -o pipefail
+
+
+FILENAME="$1"
+
+source .colors
+
+clr_green clr_bold  "Exporting capi to $FILENAME"
+
+clr_blue clr_bright "> export KUBECONFIG=/data/config"
+export KUBECONFIG=/data/config
+
+mkdir "$FILENAME"
+clr_blue clr_bright "> clusterctl move --to-directory $FILENAME"
+output=$(clusterctl move --to-directory "$FILENAME")
+
+clr_blue "$output"
