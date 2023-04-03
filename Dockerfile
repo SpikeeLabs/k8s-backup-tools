@@ -18,7 +18,7 @@ RUN wget -q --show-progress --progress=dot:giga https://dl.minio.io/client/mc/re
 # Then build our backup image
 FROM base
 
-RUN apk add --no-cache bash && adduser -Ds /bin/bash backup
+RUN apk add --no-cache jq bash && adduser -Ds /bin/bash backup
 
 WORKDIR /usr/local/bin
 
