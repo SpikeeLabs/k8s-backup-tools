@@ -1,0 +1,20 @@
+#! /bin/bash
+set -e -o pipefail
+
+
+source .colors
+
+clr_green clr_bold  "Defrag etcd"
+
+
+for ENDPOINTS in "$@"; do
+    clr_blue clr_bright "> etcdctl --endpoints=$ENDPOINTS
+                    --cert=/data/server.crt
+                    --cacert=/data/ca.crt
+                    --key=/data/server.key
+                    defrag"
+
+    output=$(etcdctl --endpoints=$ENDPOINTS --cert=/data/server.crt --cacert=/data/ca.crt --key=/data/server.key defrag)
+    clr_blue "$output"
+    sleep 5
+done
