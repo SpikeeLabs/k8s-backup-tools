@@ -25,12 +25,12 @@ mc -q --insecure cp -r "$FILENAME" "$REMOTE_PATH" || { echo "Backup failed"; mc 
 clr_blue clr_bright "Checking if Expiration rule is set"
 prefix=$(basename "$REMOTE_PATH")
 bucket=$(dirname "$REMOTE_PATH")
-rule_exist=$(mc ilm rule ls "$REMOTE_PATH" --json | jq  ".config.Rules[] | select(.Filter.Prefix==\"$prefix\")") || true
+rule_exist=$(mc ilm ls "$REMOTE_PATH" --json | jq  ".config.Rules[] | select(.Filter.Prefix==\"$prefix\")") || true
 
 if [ -z "$rule_exist" ]
 then
     clr_blue "Creating Expiration Rule";
-    mc ilm rule add "$REMOTE_PATH"  --expire-days "30";
+    mc ilm add "$REMOTE_PATH"  --expire-days "30";
 else
     clr_blue "Expiration Rule Already exist";
 fi
