@@ -1,5 +1,5 @@
 # Fetch the mc command line client
-FROM alpine:3.18.4 AS base
+FROM alpine:3.19.0 AS base
 
 
 FROM base AS builder
