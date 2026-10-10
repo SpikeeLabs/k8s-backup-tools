@@ -19,7 +19,7 @@ jobs:
           }
           EOF
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v3
+        uses: cycjimmy/semantic-release-action@v7.1.2
         with:
           semantic_version: 16
           branches: |
